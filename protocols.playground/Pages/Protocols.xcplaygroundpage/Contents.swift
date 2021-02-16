@@ -18,29 +18,33 @@ import Foundation
 enum Food {
     case fish
     case sandwich
+    // Add a new food type
 }
 
 protocol Mammal {
     func eat() -> Food
+    // What else can a mamal do? (add a new method)
 }
 
-struct Orka: Mammal {
+struct Orca: Mammal {
     func eat() -> Food {
         return Food.fish
     }
+    // Does this conform to the protocol? Add the missing method...
 }
 
 class Human: Mammal {
     func eat() -> Food {
         return Food.sandwich
     }
+    // Does this conform to the protocol? Add the missing method...
 }
 
 let peter = Human()
 peter.eat()
 
-let myOrka = Orka()
-myOrka.eat()
+let myOrca = Orca()
+myOrca.eat()
 
 
 /*:
@@ -48,11 +52,12 @@ myOrka.eat()
 */
 
 protocol Sandwich {
-    var diameter: Int {get set}
+    var diameter: Int { get set }
+    // Add another property to Sandwich?
 }
 
 
-/*
+/*:
  ## Inheritance and Protocols
  
  Protocols can be inherited by classes, structs or other protocols
@@ -65,13 +70,13 @@ protocol Sandwich {
 
 // Protocol Definitions
 protocol Vertibrates {}
-protocol Flyable {}
-protocol CanSwim {}
+protocol Flys {}
+protocol Swims {}
 
 // Protocol Inheritance
-protocol Bird: Flyable, Vertibrates {}
-class Fish: Vertibrates, CanSwim {}
-struct Amphibian: Vertibrates, CanSwim {}
+protocol Bird: Flys, Vertibrates {}
+class Fish: Vertibrates, Swims {}
+struct Amphibian: Vertibrates, Swims {}
 
 /*:
  
@@ -85,19 +90,20 @@ struct Amphibian: Vertibrates, CanSwim {}
 
 
 protocol Character {
-    var health: Int {get set}
-    var strenght: Int {get}
-    var aim: Int {get set}
+    var health: Int { get set }
+    var strength: Int { get }
+    var aim: Int { get set }
 }
 
 struct Henchman: Character {
     var health: Int
     var aim: Int
+    // What's missing here? (add the missing property and give it a value)
 }
 
 struct Hero: Character {
     var health: Int
-    let strenght: Int
+    let strength: Int
     var aim: Int
 }
 
@@ -109,28 +115,28 @@ struct Hero: Character {
 */
 
 extension Character where Self == Henchman {
-    var strenght: Int {
+    var strength: Int {
         return 200
     }
 }
 
-let hero  = Hero(health: 100, strenght: 100, aim: 100)
+let hero  = Hero(health: 100, strength: 100, aim: 100)
 
 //: We can cast our hero to a character since a Hero is a Character (from protocol conformance)
 let char =  hero as Character
 
-//: We cannot change the strenght of a Character because its specified at get only
+//: We cannot change the strength of a Character because its specified at get only
 //char.strenght = 100
 
-let stormtropper = Henchman(health: 100, aim: -100)
-stormtropper.strenght
+let stormtrooper = Henchman(health: 100, aim: -100)
+stormtrooper.strength
 
 
 /*:
  
- *Notice* how stromtropper has a default strenght of 200 even though we didn't specify it in its initializer or struct defininition?
+ *Notice* how stromtrooper has a default strength of 200 even though we didn't specify it in its initializer or struct defininition?
  
-This is because we provided a default implementation of strenght for only henchmen
+This is because we provided a default implementation of strength for only henchmen
 */
 
 
@@ -158,7 +164,7 @@ protocol TapDetectionDelegate: class {
 */
 
 @objc protocol Purchasable {
-    @objc optional var discount: Double {get set}
+    @objc optional var discount: Double { get set }
     @objc optional func purchase()
 }
 
@@ -218,6 +224,19 @@ describe(item: Ostrich())
  2.
  */
 
+
+
+
+
+
+/*:
+ 
+ ## Challenges
+ 
+ These animals all make noise. Make them conform to the CanMakeNoise protocol. They each need to implement the makeNoise method in the protocol they conform to.
+
+ */
+
  protocol CanMakeNoise {
     func makeNoise()
  }
@@ -233,11 +252,22 @@ describe(item: Ostrich())
  class Cow {
  
  }
+
  
  
  let elephant = Elephant()
  let pig = Pig()
  let cow = Cow()
+
+
+/*:
+ 
+ ## Challenges
+ 
+ Make an an instance of Human call it human. Human defined above needs to conform to CanMakeNoise.
+
+ */
+
  
  // let arrayOfNoiseMaker: [CanMakeNoise] = [human, pig, cow]
 
@@ -312,4 +342,3 @@ let andy = Artist(name: "Andy Warhol", style: .popArt, yearBorn: 1928)
 */
 
 
-//: [Next](@next)
